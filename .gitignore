@@ -1,6 +1,5 @@
 .DS_Store
 
-data/
 results/
 
 # Byte-compiled / optimized / DLL files
@@ -132,4 +131,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/data
