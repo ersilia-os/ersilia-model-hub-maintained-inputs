@@ -13,7 +13,7 @@ data_dir = os.path.join(root, "..", "data")
 dest_dir = os.path.join(root, "..", "output", "ersilia_precalculations")
 
 if not os.path.exists(dest_dir):
-    os.mkdir(dest_dir)
+    os.makedirs(dest_dir)
 
 input_file = os.path.join(data_dir, "reference_library_smiles.csv")
 
