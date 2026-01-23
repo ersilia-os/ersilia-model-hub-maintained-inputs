@@ -2,6 +2,7 @@
 
 data/chembl_standardized.csv
 output
+scripts/nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -43,7 +43,7 @@ for fn in tqdm(file_names):
     if fn.startswith("smiles_") and fn.endswith(".csv"):
         batch_id = fn.split("_")[1].split(".")[0]
         batch_ids += [int(batch_id)]
-        for model_id, _ in ERSILIA_MODEL_IDS:
+        for model_id in ERSILIA_MODEL_IDS:
             output_file = os.path.join(tmp_outputs, "{0}_{1}.csv".format(model_id, batch_id))
             if os.path.exists(output_file):
                 print("Skipping existing file:", output_file)
