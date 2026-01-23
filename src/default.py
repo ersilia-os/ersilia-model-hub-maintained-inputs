@@ -1,0 +1,21 @@
+ERSILIA_MODEL_IDS = [
+    "eos12x7",
+    "eos1lb5",
+    "eos2xeq",
+    "eos3lyd",
+    #"eos4r1g",
+    #"eos5bsw",
+    #"eos7l5m",
+    #"eos9f7c",
+    #"eos5nqn",
+    #"eos9x3z",
+    #"eos11sm",
+    #"eos6m2k",
+    #"eos8d8a",
+    #"eos7m30",
+    #"eos65rt",
+    #"eos5xng",
+    #"eos5cl7",
+    #"eos39dp",
+    #"eos2gth"
+    ]
