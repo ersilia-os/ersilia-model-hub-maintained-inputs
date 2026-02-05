@@ -1,6 +1,8 @@
 .DS_Store
 
-data/chembl_standardized.csv
+data/raw/*
+data/chembl_standardized.tar.gz
+data/chembl.tar.gz
 output
 scripts/nohup.out
 
