@@ -3,7 +3,6 @@
 data/raw/*
 data/chembl_standardized.tar.gz
 data/chembl.tar.gz
-output
 scripts/nohup.out
 
 # Byte-compiled / optimized / DLL files
