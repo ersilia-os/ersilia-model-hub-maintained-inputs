@@ -16,3 +16,9 @@ Update the model list in default.py with the right EOS IDs (do not commit change
 
 ## 04. Check results
 Before considering a model finished, check the calculations went well. A first iteration to be improved can be run from `01_checks.py`
+`python 01_checks.py`
+
+## 05. Upload precalculations to Isaura
+After doing the checks you can upload the calculations to Isaura by executinb 02_upload_to_isaura.py. ⚠️Before executing this step make sure you have Isaura installed and all the env variables set up for uploading to Isaura cloud store.⚠️ 
+`python 02_upload_to_isaura.py`
+
