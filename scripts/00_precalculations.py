@@ -9,7 +9,7 @@ sys.path.append(os.path.join(root, "..", "src"))
 
 from default import ERSILIA_MODEL_IDS
 
-data_dir = os.path.join(root, "..", "data")
+data_dir = os.path.join(root, "..", "inputs")
 dest_dir = os.path.join(root, "..", "output", "ersilia_precalculations")
 
 if not os.path.exists(dest_dir):

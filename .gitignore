@@ -1,9 +1,9 @@
 .DS_Store
 
-data/raw/*
-data/chembl_standardized.tar.gz
-data/chembl.tar.gz
+data/*
 scripts/nohup.out
+output/*
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

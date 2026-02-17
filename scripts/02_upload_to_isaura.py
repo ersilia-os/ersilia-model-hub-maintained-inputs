@@ -19,8 +19,6 @@ acces = "public"
 root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(root, "..", "src"))
 
-
-
 dest_dir = os.path.join(root, "..", "output", "ersilia_precalculations")
 tmp_inputs = os.path.join(dest_dir, "batch_inputs")
 tmp_outputs = os.path.join(dest_dir, "batch_outputs")
