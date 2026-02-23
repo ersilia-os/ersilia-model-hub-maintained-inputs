@@ -40,4 +40,5 @@ for model_id in ERSILIA_MODEL_IDS:
     for file in files:
         df = pd.read_csv(os.path.join(tmp_outputs, file))
         nan_count = df.isna().sum().sum()
-        print(f"  File: {file}, NaNs: {nan_count}")
+        if nan_count > 0:
+            print(f"  File: {file}, NaNs: {nan_count}")
