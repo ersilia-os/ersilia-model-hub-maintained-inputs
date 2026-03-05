@@ -1,3 +1,17 @@
 ERSILIA_MODEL_IDS = {
-    "eos3b5e":"v1"
+    "eos4rw4": "v1",
+    "eos3e6s": "v1",
+    "eos4ywv": "v1",
+    "eos11sr": "v1",
+    "eos2sbn": "v1",
+    "eos2mxh": "v1",
+    "eos2h1r": "v1",
+    "eos77jk": "v1",
+    "eos4jcv": "v1",
+    "eos8ub5": "v1",
+    "eos9gg2": "v1",
+    "eos4djh": "v1",
+    "eos39co": "v1",
+    "eos6ru3": "v1",
+    "eos6ost": "v1",
  } # List your models here with their versions as a dictionary. Example is provided.
