@@ -10,13 +10,14 @@ from default import ERSILIA_MODEL_IDS
 dest_dir = os.path.join(root, "..", "output", "ersilia_precalculations")
 tmp_outputs = os.path.join(dest_dir, "batch_outputs")
 
-zip_dir = os.path.join(root, "..", "stored_outputs")
+zip_dir = os.path.join(root, "..", "output","stored_outputs")
 os.makedirs(zip_dir, exist_ok=True)
 
 
-for model_id in ERSILIA_MODEL_IDS:
+for model_id in ERSILIA_MODEL_IDS.keys():
+    output_folder = os.path.join(tmp_outputs, model_id)
     files = sorted(
-        f for f in os.listdir(tmp_outputs)
+        f for f in os.listdir(output_folder)
         if f.startswith(model_id + "_") and f.endswith(".csv")
     )
     num_files = len(files)

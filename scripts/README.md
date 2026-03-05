@@ -1,24 +1,25 @@
 # Ersilia Reference Library Precalculations
 
-Use the following pipeline to generate precalculations for the Ersilia Reference Library:
+Use the following pipeline to generate precalculations for the Ersilia Reference Library, which is stored in ready-to-use format in the `/inputs` directory.
 
-_First make sure the right input file (`reference_library_smiles.csv`) is availabe in your `/data` folder_
+## 00_prepare_inputs
+Prepare the input library in batches of 10000 SMILES and create the output folders.
 
-## 01. Fetch models
-Check the [list]() of models to run precalculations for and take the highest priority models that are not yet assigned to anyone. Make sure to update the list so that we don't repeat efforts.
-Fetch the models one by one through the Ersilia CLI, using the `--from_dockerhub` option and specifying the version in the Excel file, not latest.
+## 01_precalculations_dockerhub
+This script will run the Ersilia calculations for all the models specified in the default list under `src/default.py`. The script assumes models are fetched previously. For safety, manually fetch `--from_dockerhub` the model list with the specified version required.
 
-## 02. Update the default.py
-Update the model list in default.py with the right EOS IDs (do not commit changes in this file to avoid git conflicts)
+If you want to run them in the background, we recommend using nohup: `nohup python 01_precalculations_dockerhub.py 2>&1 &`
 
-## 03. Run the precalculations script
-`nohup python 00_precalculations.py 2>&1 &`
+## 01b_precalculations_sif
+For running models in an HPC cluster using SIF images, read the documentation in [ersilia-apptainer](https://github.com/ersilia-os/ersilia-apptainer) and make sure you have the apptainer package installed. Convert and collect the .sif images of the models in the `output/sif_images` folder and run the bash script passing as variables:
+* Model ID ($1)
+* Path to repository (path to the cloned ersilia-model-hub-maintained-inputs repository)
 
-## 04. Check results
-Before considering a model finished, check the calculations went well. A first iteration to be improved can be run from `01_checks.py`
-`python 01_checks.py`
+## 02_checks
+This script does a quick check to ensure all the smiles were calculated (if a batch failed, the number is printed). It also counts the number of NaN values in each batch.
 
-## 05. Upload precalculations to Isaura
-After doing the checks you can upload the calculations to Isaura by executinb 02_upload_to_isaura.py. ⚠️Before executing this step make sure you have Isaura installed and all the env variables set up for uploading to Isaura cloud store.⚠️ 
-`python 02_upload_to_isaura.py`
+## 03_zip_precalculations
+Optional: secure the calculations as a zip file under `output/stored_outputs`
 
+## 04_upload_to_isaura
+This step will upload the specified models to the isaura-public store. You can later remove them from your local Isaura stroe if you want. For large models (those producing > 100 outputs per molecule) there is an intermediate batching step to facilitate the upload. This step requires having [Isaura](https://github.com/ersilia-os/isaura) properly installed.

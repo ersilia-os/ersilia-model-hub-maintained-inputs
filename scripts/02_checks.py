@@ -17,8 +17,9 @@ input_numbers = set(int(f.replace("smiles_", "").replace(".csv", "")) for f in i
 print(f"Total input files: {len(input_files)}")
 print(f"Input file range: {min(input_numbers):03d} to {max(input_numbers):03d}\n")
 
-for model_id in ERSILIA_MODEL_IDS:
-    files = sorted([f for f in os.listdir(tmp_outputs) if f.startswith(model_id + "_") and f.endswith(".csv")])
+for model_id in ERSILIA_MODEL_IDS.keys():
+    output_folder = os.path.join(tmp_outputs, model_id)
+    files = sorted([f for f in os.listdir(output_folder) if f.startswith(model_id + "_") and f.endswith(".csv")])
     num_files = len(files)
     print(f"Model ID: {model_id}, Number of output files: {num_files}")
 
@@ -31,14 +32,14 @@ for model_id in ERSILIA_MODEL_IDS:
     print(f"Model ID: {model_id}")
     print(f"  Total output files: {len(files)}")
     print(f"  Missing files: {len(missing_numbers)}")
-    
     if missing_numbers:
         print(f"  Missing batch numbers: {', '.join(f'{n:03d}' for n in missing_numbers)}")
     else:
         print(f"  All files present!")
     print()
+    
     for file in files:
-        df = pd.read_csv(os.path.join(tmp_outputs, file))
+        df = pd.read_csv(os.path.join(output_folder, file))
         nan_count = df.isna().sum().sum()
         if nan_count > 0:
             print(f"  File: {file}, NaNs: {nan_count}")
