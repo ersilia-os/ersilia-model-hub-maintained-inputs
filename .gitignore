@@ -1,5 +1,6 @@
 .DS_Store
 
+src/default.py
 data/*
 scripts/nohup.out
 output/*
