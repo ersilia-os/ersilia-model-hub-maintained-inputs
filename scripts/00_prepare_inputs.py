@@ -6,7 +6,7 @@ import sys
 root = os.path.dirname(os.path.abspath(__file__))
 
 data_dir = os.path.join(root, "..", "inputs")
-dest_dir = os.path.join(root, "..", "output", "ersilia_precalculations")
+dest_dir = os.path.join(root, "..", "output", "ersilia-precalculations")
 
 if not os.path.exists(dest_dir):
     os.makedirs(dest_dir)

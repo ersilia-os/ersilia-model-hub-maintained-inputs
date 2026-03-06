@@ -30,3 +30,4 @@ From: ersiliaos/{model}:latest
 """)
     
     subprocess.run(["singularity", "build", sif_path, def_path], check=True)
+    subprocess.run(["apptainer", "cache", "clean", "-f"])

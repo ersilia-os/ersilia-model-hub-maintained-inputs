@@ -1,13 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 MODEL="$1"
-BASE="$2"
+BASE="/aloy/home/acomajuncosa/Ersilia/ersilia-model-hub-maintained-inputs"
 
 LOGDIR="$BASE/logs/$MODEL"
-mkdir -p "$LOGDIR"
-
 INPDIR="$BASE/output/ersilia-precalculations/batch_inputs"
 RESDIR="$BASE/output/ersilia-precalculations/batch_outputs/${MODEL}"
+APPDIR="$BASE/output/apptainer/${MODEL}"
+
+mkdir -p "$LOGDIR"
+mkdir -p "$RESDIR"
+mkdir -p "$BASE/tmp"
 
 tmp="$(mktemp "$BASE/tmp/${MODEL}.sbatch.XXXXXX.sh")"
 
@@ -24,28 +27,23 @@ cat > "$tmp" <<EOF
 #SBATCH --mem=4G
 #SBATCH --output=$LOGDIR/%x_%a.out
 #SBATCH --partition=spot_cpu
-#SBATCH --nodelist=irbccn16,irbccn41
+#SBATCH --nodelist=irbccn16,irbccn41,irbccn42
 #SBATCH --requeue
 
 export SINGULARITYENV_LD_LIBRARY_PATH=\$LD_LIBRARY_PATH
 export SINGULARITY_BINDPATH="/home/sbnb:/aloy/home,/data/sbnb/data:/aloy/data,/data/sbnb/scratch:/aloy/scratch"
 export LD_LIBRARY_PATH=/apps/manual/software/CUDA/11.6.1/lib64:/apps/manual/software/CUDA/11.6.1/targets/x86_64-linux/lib:/apps/manual/software/CUDA/11.6.1/extras/CUPTI/lib64/:/apps/manual/software/CUDA/11.6.1/nvvm/lib64/:\$LD_LIBRARY_PATH
 
-set -euo pipefail
+# set -euo pipefail
 cd $RESDIR
-export PATH=\$HOME/.local/bin:\$PATH
 
 alpha="\$SLURM_ARRAY_TASK_ID"
 alpha_padded="\$(printf "%03d" "\$alpha")"
 
-command -v ersilia_apptainer
-which -a ersilia_apptainer
-type -a ersilia_apptainer
-
-ersilia_apptainer \
-  --sif "${MODEL}.sif" \
-  --input "./smiles_\${alpha_padded}.csv" \
-  --output "./${MODEL}_\${alpha_padded}.csv" \
+/aloy/home/acomajuncosa/Ersilia/envs/ersilia_apptainer/bin/ersilia_apptainer \
+  --sif "${APPDIR}/${MODEL}.sif" \
+  --input "${INPDIR}/smiles_\${alpha_padded}.csv" \
+  --output "${RESDIR}/${MODEL}_\${alpha_padded}.csv" \
   --verbose
 
 EOF
