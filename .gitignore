@@ -4,6 +4,8 @@ src/default.py
 data/*
 scripts/nohup.out
 output/*
+logs/*
+tmp/*
 
 
 # Byte-compiled / optimized / DLL files
