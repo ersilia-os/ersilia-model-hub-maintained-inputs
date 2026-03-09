@@ -1,6 +1,7 @@
 import os
 import sys
 import zipfile
+from tqdm import tqdm
 
 root = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(root, "..", "src"))
@@ -30,8 +31,8 @@ for model_id in ERSILIA_MODEL_IDS.keys():
     zip_path = os.path.join(zip_dir, f"{model_id}.zip")
 
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        for f in files:
-            full_path = os.path.join(tmp_outputs, f)
+        for f in tqdm(files):
+            full_path = os.path.join(tmp_outputs, model_id, f)
             zf.write(full_path, arcname=f)
 
     print(f"✅ Created {zip_path} ({len(files)} files)")

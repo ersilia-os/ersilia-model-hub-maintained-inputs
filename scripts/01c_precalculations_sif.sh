@@ -4,8 +4,8 @@ MODEL="$1"
 BASE="/aloy/home/acomajuncosa/Ersilia/ersilia-model-hub-maintained-inputs"
 
 LOGDIR="$BASE/logs/$MODEL"
-INPDIR="$BASE/output/ersilia-precalculations/batch_inputs"
-RESDIR="$BASE/output/ersilia-precalculations/batch_outputs/${MODEL}"
+INPDIR="$BASE/output/ersilia_precalculations/batch_inputs"
+RESDIR="$BASE/output/ersilia_precalculations/batch_outputs/${MODEL}"
 APPDIR="$BASE/output/apptainer/${MODEL}"
 
 mkdir -p "$LOGDIR"
@@ -24,7 +24,7 @@ cat > "$tmp" <<EOF
 #SBATCH --nodes=1
 #SBATCH --array=0-135%1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=4G
+#SBATCH --mem=8G
 #SBATCH --output=$LOGDIR/%x_%a.out
 #SBATCH --partition=spot_cpu
 #SBATCH --nodelist=irbccn16,irbccn41,irbccn42
