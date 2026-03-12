@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from tqdm import tqdm
 import sys
 
 
@@ -38,7 +39,7 @@ for model_id in ERSILIA_MODEL_IDS.keys():
         print(f"  All files present!")
     print()
     
-    for file in files:
+    for file in tqdm(files):
         df = pd.read_csv(os.path.join(output_folder, file))
         nan_count = df.isna().sum().sum()
         if nan_count > 0:
