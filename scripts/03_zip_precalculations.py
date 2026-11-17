@@ -15,11 +15,13 @@ zip_dir = os.path.join(root, "..", "output","stored_outputs")
 os.makedirs(zip_dir, exist_ok=True)
 
 
-for model_id in ERSILIA_MODEL_IDS.keys():
-    output_folder = os.path.join(tmp_outputs, model_id)
+for model_id, model_version in ERSILIA_MODEL_IDS.items():
+    # outputs live in batch_outputs/<model>_<version>/<model>_<version>_<NNN>.csv
+    run_name = f"{model_id}_{model_version}"
+    output_folder = os.path.join(tmp_outputs, run_name)
     files = sorted(
         f for f in os.listdir(output_folder)
-        if f.startswith(model_id + "_") and f.endswith(".csv")
+        if f.startswith(run_name + "_") and f.endswith(".csv")
     )
     num_files = len(files)
     print(f"Model ID: {model_id}, Number of output files: {num_files}")
@@ -28,11 +30,11 @@ for model_id in ERSILIA_MODEL_IDS.keys():
         print(f"⚠️ No files found for model {model_id}")
         continue
 
-    zip_path = os.path.join(zip_dir, f"{model_id}.zip")
+    zip_path = os.path.join(zip_dir, f"{run_name}.zip")
 
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for f in tqdm(files):
-            full_path = os.path.join(tmp_outputs, model_id, f)
+            full_path = os.path.join(output_folder, f)
             zf.write(full_path, arcname=f)
 
     print(f"✅ Created {zip_path} ({len(files)} files)")
