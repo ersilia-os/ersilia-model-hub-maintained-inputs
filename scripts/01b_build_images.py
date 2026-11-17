@@ -8,12 +8,14 @@ sys.path.append(os.path.join(root, "..", "src"))
 from default import ERSILIA_MODEL_IDS
 
 for model in ERSILIA_MODEL_IDS:
+    version = ERSILIA_MODEL_IDS[model]
+    image_name = f"{model}_{version}"
 
     dest_dir = os.path.join(root, "..", "output", "apptainer", model)
     os.makedirs(dest_dir, exist_ok=True)
 
-    def_path = os.path.join(dest_dir, f"{model}.def")
-    sif_path = os.path.join(dest_dir, f"{model}.sif")
+    def_path = os.path.join(dest_dir, f"{image_name}.def")
+    sif_path = os.path.join(dest_dir, f"{image_name}.sif")
 
     open(def_path, "w").write(f"""Bootstrap: docker
 From: ersiliaos/{model}:latest
